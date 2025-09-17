@@ -1,17 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Download, Filter, Plus, Search } from "lucide-react";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 export function ClientsHeader() {
   return (
-    <header className="bg-card border-b border-border">
-      <div className="container mx-auto px-4 py-4">
+    <header className="">
+      <div className="container mx-auto py-4">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">
-              Gestión de Clientes
-            </h1>
+            <h1 className="text-2xl font-bold text-foreground">Clientes</h1>
             <p className="text-muted-foreground text-sm">
               Administra la información de tus clientes
             </p>

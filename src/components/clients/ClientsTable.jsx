@@ -1,5 +1,8 @@
 "use client";
 
+import { Edit, Eye, Mail, MoreHorizontal, Phone, Trash2 } from "lucide-react";
+import { useState } from "react";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,69 +21,77 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Edit, Eye, Mail, MoreHorizontal, Phone, Trash2 } from "lucide-react";
-import { useState } from "react";
 
 // Mock client data
 const mockClients = [
   {
     id: 1,
-    name: "María González",
-    email: "maria.gonzalez@email.com",
-    phone: "+57 300 123 4567",
+    firstName: "María",
+    lastName: "González",
     identification_number: "12345678",
+    phone: "+57 300 123 4567",
     address: "Calle Principal 123, Bogotá",
+    email: "maria.gonzalez@email.com",
+    status: "active",
+    observations: "Cliente con créditos activos",
     activeCredits: 2,
     totalDebt: 75000000,
-    status: "active",
     created_at: "2024-01-15",
   },
   {
     id: 2,
-    name: "Carlos Rodríguez",
-    email: "carlos.rodriguez@email.com",
-    phone: "+57 301 234 5678",
+    firstName: "Carlos Rodríguez",
+    lastName: "Rodríguez",
     identification_number: "23456789",
+    phone: "+57 301 234 5678",
     address: "Avenida Central 456, Medellín",
+    email: "carlos.rodriguez@email.com",
+    status: "active",
+    observations: "Cliente con créditos activos",
     activeCredits: 1,
     totalDebt: 25000000,
-    status: "active",
     created_at: "2024-02-20",
   },
   {
     id: 3,
-    name: "Ana Martínez",
-    email: "ana.martinez@email.com",
-    phone: "+57 302 345 6789",
+    firstName: "Ana",
+    lastName: "Martínez",
     identification_number: "34567890",
+    phone: "+57 302 345 6789",
     address: "Plaza Mayor 789, Cali",
-    activeCredits: 1,
-    totalDebt: 50000000,
+    email: "ana.martinez@email.com",
     status: "active",
+    observations: "Cliente con créditos activos",
+    totalDebt: 50000000,
+    activeCredits: 1,
     created_at: "2023-12-10",
   },
   {
     id: 4,
-    name: "Luis Fernández",
-    email: "luis.fernandez@email.com",
-    phone: "+57 303 456 7890",
+    firstName: "Luis",
+    lastName: "Fernández",
     identification_number: "45678901",
+    phone: "+57 303 456 7890",
     address: "Calle Secundaria 321, Barranquilla",
+    email: "luis.fernandez@email.com",
+    status: "inactive",
+    observations: "Cliente con créditos activos",
     activeCredits: 0,
     totalDebt: 0,
-    status: "inactive",
     created_at: "2024-06-01",
   },
   {
     id: 5,
-    name: "Carmen López",
-    email: "carmen.lopez@email.com",
-    phone: "+57 304 567 8901",
+    firstName: "Carmen",
+    lastName: "López",
     identification_number: "56789012",
+    phone: "+57 304 567 8901",
     address: "Avenida Norte 654, Cartagena",
+    email: "carmen.lopez@email.com",
+    status: "active",
+    observations: "Cliente con créditos activos",
     activeCredits: 1,
     totalDebt: 30000000,
-    status: "active",
     created_at: "2024-02-15",
   },
 ];
@@ -127,6 +138,7 @@ export function ClientsTable() {
                 <TableHead>Créditos Activos</TableHead>
                 <TableHead>Deuda Total</TableHead>
                 <TableHead>Estado</TableHead>
+                <TableHead>Observaciones</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -137,7 +149,7 @@ export function ClientsTable() {
                     <div className="flex items-center gap-3">
                       <Avatar className="h-8 w-8">
                         <AvatarFallback className="bg-primary/10 text-primary text-xs">
-                          {client.name
+                          {client.firstName
                             .split(" ")
                             .map((n) => n[0])
                             .join("")}
@@ -145,7 +157,7 @@ export function ClientsTable() {
                       </Avatar>
                       <div>
                         <div className="font-medium text-foreground">
-                          {client.name}
+                          {client.firstName} {client.lastName}
                         </div>
                         <div className="text-sm text-muted-foreground truncate max-w-[200px]">
                           {client.address}
@@ -187,6 +199,7 @@ export function ClientsTable() {
                     </span>
                   </TableCell>
                   <TableCell>{getStatusBadge(client.status)}</TableCell>
+                  <TableCell>{client.observations}</TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

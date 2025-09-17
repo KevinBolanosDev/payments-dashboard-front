@@ -21,83 +21,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-// Mock client data
-const mockClients = [
-  {
-    id: 1,
-    firstName: "María",
-    lastName: "González",
-    identification_number: "12345678",
-    phone: "+57 300 123 4567",
-    address: "Calle Principal 123, Bogotá",
-    email: "maria.gonzalez@email.com",
-    status: "active",
-    observations: "Cliente con créditos activos",
-    activeCredits: 2,
-    totalDebt: 75000000,
-    created_at: "2024-01-15",
-  },
-  {
-    id: 2,
-    firstName: "Carlos Rodríguez",
-    lastName: "Rodríguez",
-    identification_number: "23456789",
-    phone: "+57 301 234 5678",
-    address: "Avenida Central 456, Medellín",
-    email: "carlos.rodriguez@email.com",
-    status: "active",
-    observations: "Cliente con créditos activos",
-    activeCredits: 1,
-    totalDebt: 25000000,
-    created_at: "2024-02-20",
-  },
-  {
-    id: 3,
-    firstName: "Ana",
-    lastName: "Martínez",
-    identification_number: "34567890",
-    phone: "+57 302 345 6789",
-    address: "Plaza Mayor 789, Cali",
-    email: "ana.martinez@email.com",
-    status: "active",
-    observations: "Cliente con créditos activos",
-    totalDebt: 50000000,
-    activeCredits: 1,
-    created_at: "2023-12-10",
-  },
-  {
-    id: 4,
-    firstName: "Luis",
-    lastName: "Fernández",
-    identification_number: "45678901",
-    phone: "+57 303 456 7890",
-    address: "Calle Secundaria 321, Barranquilla",
-    email: "luis.fernandez@email.com",
-    status: "inactive",
-    observations: "Cliente con créditos activos",
-    activeCredits: 0,
-    totalDebt: 0,
-    created_at: "2024-06-01",
-  },
-  {
-    id: 5,
-    firstName: "Carmen",
-    lastName: "López",
-    identification_number: "56789012",
-    phone: "+57 304 567 8901",
-    address: "Avenida Norte 654, Cartagena",
-    email: "carmen.lopez@email.com",
-    status: "active",
-    observations: "Cliente con créditos activos",
-    activeCredits: 1,
-    totalDebt: 30000000,
-    created_at: "2024-02-15",
-  },
-];
+import { useClients } from "@/hooks/useClients";
 
 export function ClientsTable() {
-  const [clients] = useState(mockClients);
+  // State para la paginación
+  const [page, setPage] = useState(1);
+
+  // Hooks para obtener datos de los clientes
+  const {
+    data: clients,
+    isLoading,
+    error,
+    isError,
+  } = useClients({
+    page,
+    limit: 10,
+  });
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("es-CO", {
@@ -143,7 +82,7 @@ export function ClientsTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {clients.map((client) => (
+              {clients?.data?.map((client) => (
                 <TableRow key={client.id} className="hover:bg-accent/50">
                   <TableCell>
                     <div className="flex items-center gap-3">

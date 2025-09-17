@@ -1,20 +1,44 @@
-import { TrendingUp, UserCheck, Users, UserX } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
 
-// Mock data - in a real app, this would come from your database
-const mockStats = {
-  totalClients: 156,
-  activeClients: 142,
-  inactiveClients: 14,
-  newThisMonth: 8,
-};
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useClientsStats } from "@/hooks/useClients";
+import { TrendingUp, UserCheck, Users, UserX } from "lucide-react";
 
 export function ClientsStats() {
-  const stats = [
+  const { data: stats, isLoading, error, isError } = useClientsStats();
+
+  console.log("stats data:", stats);
+
+  if (isError) {
+    return (
+      <div className="text-red-500 p-4 border border-red-200 rounded-md">
+        Error al cargar las estadísticas:{" "}
+        {error?.message || "Error desconocido"}
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-muted-foreground">Cargando estadísticas...</div>
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <div className="text-muted-foreground p-4 border border-gray-200 rounded-md">
+        No hay estadísticas disponibles
+      </div>
+    );
+  }
+
+  const statsData = [
     {
       id: "total-clients",
       title: "Total de Clientes",
-      value: mockStats.totalClients.toString(),
+      value: (stats?.totalClients ?? 0).toString(),
       icon: Users,
       description: "Clientes registrados",
       color: "text-primary",
@@ -22,7 +46,7 @@ export function ClientsStats() {
     {
       id: "active-clients",
       title: "Clientes Activos",
-      value: mockStats.activeClients.toString(),
+      value: (stats?.activeClients ?? 0).toString(),
       icon: UserCheck,
       description: "Con créditos vigentes",
       color: "text-secondary",
@@ -30,7 +54,7 @@ export function ClientsStats() {
     {
       id: "inactive-clients",
       title: "Clientes Inactivos",
-      value: mockStats.inactiveClients.toString(),
+      value: (stats?.inactiveClients ?? 0).toString(),
       icon: UserX,
       description: "Sin créditos activos",
       color: "text-muted-foreground",
@@ -38,7 +62,7 @@ export function ClientsStats() {
     {
       id: "new-this-month",
       title: "Nuevos Este Mes",
-      value: mockStats.newThisMonth.toString(),
+      value: (stats?.newClientsThisMonth ?? 0).toString(),
       icon: TrendingUp,
       description: "Registrados en el mes",
       color: "text-secondary",
@@ -47,7 +71,7 @@ export function ClientsStats() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map((stat) => {
+      {statsData?.map((stat) => {
         const Icon = stat.icon;
         return (
           <Card key={stat.id} className="hover:shadow-md transition-shadow">

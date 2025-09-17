@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { DashboardHeader } from "@/components/dashboard-home/DashboardHeader";
 import { Navigation } from "@/components/Navigation";
+import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -26,18 +27,20 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen bg-background">
-            <DashboardHeader />
-            <Navigation />
-            <main className="container mx-auto px-4 py-8">{children}</main>
-          </div>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="min-h-screen bg-background">
+              <DashboardHeader />
+              <Navigation />
+              <main className="container mx-auto px-4 py-8">{children}</main>
+            </div>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

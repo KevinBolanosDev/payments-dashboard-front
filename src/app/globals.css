@@ -37,6 +37,14 @@
   /* Orange warning */
   --destructive-foreground: oklch(1 0 0);
   /* White text on destructive */
+  --warning: oklch(0.75 0.18 80);
+  /* Amarillo cálido para advertencias */
+  --warning-foreground: oklch(0.15 0.02 270);
+  /* Texto oscuro en warning */
+  --success: oklch(0.65 0.2 150);
+  /* Verde para éxito */
+  --success-foreground: oklch(1 0 0);
+  /* Texto blanco en success */
   --border: oklch(0.9 0.01 195);
   /* Light cyan border */
   --input: oklch(0.97 0.01 120);
@@ -73,71 +81,79 @@
 }
 
 .dark {
-  /* Dark theme with cyan/green financial colors */
-  --background: oklch(0.08 0.01 195);
-  /* Very dark cyan background */
-  --foreground: oklch(0.95 0.01 195);
-  /* Light cyan text */
-  --card: oklch(0.12 0.01 195);
-  /* Dark cyan card */
-  --card-foreground: oklch(0.95 0.01 195);
-  /* Light cyan card text */
-  --popover: oklch(0.12 0.01 195);
-  /* Dark cyan popover */
-  --popover-foreground: oklch(0.95 0.01 195);
-  /* Light cyan popover text */
-  --primary: oklch(0.65 0.12 195);
-  /* Bright cyan primary */
-  --primary-foreground: oklch(0.08 0.01 195);
-  /* Dark text on primary */
-  --secondary: oklch(0.65 0.15 120);
-  /* Bright green secondary */
-  --secondary-foreground: oklch(0.08 0.01 195);
-  /* Dark text on secondary */
-  --muted: oklch(0.18 0.01 195);
-  /* Muted dark cyan */
-  --muted-foreground: oklch(0.65 0.01 195);
-  /* Muted light cyan text */
-  --accent: oklch(0.65 0.15 120);
-  /* Bright green accent */
-  --accent-foreground: oklch(0.08 0.01 195);
-  /* Dark text on accent */
-  --destructive: oklch(0.65 0.15 35);
-  /* Orange warning */
-  --destructive-foreground: oklch(0.95 0.01 195);
-  /* Light text on destructive */
-  --border: oklch(0.25 0.01 195);
-  /* Dark cyan border */
-  --input: oklch(0.18 0.01 195);
-  /* Dark cyan input */
-  --ring: oklch(0.65 0.15 120);
-  /* Green focus ring */
-  --chart-1: oklch(0.65 0.15 35);
-  /* Orange chart */
-  --chart-2: oklch(0.65 0.15 120);
-  /* Green chart */
-  --chart-3: oklch(0.65 0.12 195);
-  /* Cyan chart */
-  --chart-4: oklch(0.75 0.15 120);
-  /* Bright green chart */
-  --chart-5: oklch(0.55 0.08 195);
-  /* Darker cyan chart */
-  --sidebar: oklch(0.1 0.01 195);
-  /* Dark cyan sidebar */
-  --sidebar-foreground: oklch(0.95 0.01 195);
-  /* Light sidebar text */
-  --sidebar-primary: oklch(0.65 0.12 195);
-  /* Cyan sidebar primary */
-  --sidebar-primary-foreground: oklch(0.08 0.01 195);
-  /* Dark sidebar primary text */
-  --sidebar-accent: oklch(0.65 0.15 120);
-  /* Green sidebar accent */
-  --sidebar-accent-foreground: oklch(0.08 0.01 195);
-  /* Dark sidebar accent text */
-  --sidebar-border: oklch(0.25 0.01 195);
-  /* Dark cyan sidebar border */
-  --sidebar-ring: oklch(0.65 0.15 120);
-  /* Green sidebar focus ring */
+  /* Base */
+  --background: oklch(0.09 0.01 270);
+  /* Fondo gris oscuro (#0D1117) */
+  --foreground: oklch(0.95 0.01 270);
+  /* Texto blanco azulado (#E6EDF3) */
+
+  --card: oklch(0.12 0.01 270);
+  /* Fondo de card (#161B22) */
+  --card-foreground: oklch(0.95 0.01 270);
+
+  --popover: oklch(0.12 0.01 270);
+  --popover-foreground: oklch(0.95 0.01 270);
+
+  /* Colores principales */
+  --primary: oklch(0.62 0.15 255);
+  /* Azul confianza (#3B82F6) */
+  --primary-foreground: oklch(0.98 0 270);
+  /* Blanco */
+
+  --secondary: oklch(0.62 0.14 150);
+  /* Verde esmeralda (#10B981) */
+  --secondary-foreground: oklch(0.98 0 270);
+
+  --muted: oklch(0.18 0.01 270);
+  /* Gris oscuro (#1F2937) */
+  --muted-foreground: oklch(0.7 0.02 270);
+  /* Gris claro (#8B949E) */
+
+  --accent: oklch(0.5 0.08 250);
+  /* Azul más profundo (#1E40AF) */
+  --accent-foreground: oklch(0.98 0 270);
+
+  /* Estados */
+  --destructive: oklch(0.6 0.18 25);
+  /* Rojo fuerte (#EF4444) */
+  --destructive-foreground: oklch(0.98 0 270);
+
+  --warning: oklch(0.75 0.18 80);
+  /* Amarillo cálido (#F59E0B) */
+  --warning-foreground: oklch(0.15 0.02 270);
+
+  --success: oklch(0.65 0.2 150);
+  /* Verde aprobado (#22C55E) */
+  --success-foreground: oklch(0.98 0 270);
+
+  /* Extras */
+  --border: oklch(0.25 0.01 270);
+  /* Borde gris (#2D333B) */
+  --input: oklch(0.18 0.01 270);
+  --ring: oklch(0.62 0.14 150);
+  /* Verde focus */
+
+  /* Charts */
+  --chart-1: oklch(0.6 0.18 25);
+  /* Rojo */
+  --chart-2: oklch(0.62 0.14 150);
+  /* Verde */
+  --chart-3: oklch(0.62 0.15 255);
+  /* Azul */
+  --chart-4: oklch(0.75 0.2 150);
+  /* Verde brillante */
+  --chart-5: oklch(0.55 0.12 255);
+  /* Azul más oscuro */
+
+  /* Sidebar */
+  --sidebar: oklch(0.1 0.01 270);
+  --sidebar-foreground: oklch(0.95 0.01 270);
+  --sidebar-primary: oklch(0.62 0.15 255);
+  --sidebar-primary-foreground: oklch(0.98 0 270);
+  --sidebar-accent: oklch(0.62 0.14 150);
+  --sidebar-accent-foreground: oklch(0.98 0 270);
+  --sidebar-border: oklch(0.25 0.01 270);
+  --sidebar-ring: oklch(0.62 0.14 150);
 }
 
 @theme inline {
@@ -159,6 +175,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);

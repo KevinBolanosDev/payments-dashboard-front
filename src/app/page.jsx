@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "framer-motion";
 import { Suspense } from "react";
 
 import { MetricsCards } from "@/components/dashboard-home/MetricsCards";
@@ -11,9 +13,15 @@ export default function Home() {
       <div className="flex flex-col gap-8">
         {/* Metrics Overview */}
         <section>
-          <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Resumen General
-          </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-2xl font-semibold text-foreground mb-6">
+              Resumen General
+            </h2>
+          </motion.div>
           <Suspense fallback={<div>Cargando métricas...</div>}>
             <MetricsCards />
           </Suspense>

@@ -1,5 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
 import { Download, Filter, Plus, Search } from "lucide-react";
 import Link from "next/link";
 
@@ -28,12 +30,17 @@ export function CreditsHeader() {
             <Button variant="outline" size="icon">
               <Download className="h-4 w-4" />
             </Button>
-            <Button asChild>
-              <Link href="/credits/new">
-                <Plus className="h-4 w-4 mr-2" />
-                Nuevo Crédito
-              </Link>
-            </Button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <Button asChild>
+                <Link href="/credits/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Nuevo Crédito
+                </Link>
+              </Button>
+            </motion.button>
           </div>
         </div>
       </div>

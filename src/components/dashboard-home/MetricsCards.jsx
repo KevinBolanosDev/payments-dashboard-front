@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 // Mock data - in a real app, this would come from your database
 const mockMetrics = {
@@ -79,27 +80,40 @@ export function MetricsCards() {
     },
   ];
 
+  const boxVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {metrics.map((metric) => {
         const Icon = metric.icon;
         return (
-          <Card key={metric.id} className="hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {metric.title}
-              </CardTitle>
-              <Icon className={`h-5 w-5 ${metric.color}`} />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground mb-1">
-                {metric.value}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {metric.description}
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div
+            key={metric.id}
+            variants={boxVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 1 }}
+          >
+            <Card key={metric.id} className="hover:shadow-md transition-shadow">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  {metric.title}
+                </CardTitle>
+                <Icon className={`h-5 w-5 ${metric.color}`} />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-foreground mb-1">
+                  {metric.value}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {metric.description}
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         );
       })}
     </div>

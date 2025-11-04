@@ -71,10 +71,10 @@ export function ClientsStats() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {statsData?.map((stat) => {
+      {statsData?.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <Card key={stat.id} className="hover:shadow-md transition-shadow">
+          <Card key={index} className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 {stat.title}

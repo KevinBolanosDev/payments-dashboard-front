@@ -65,6 +65,16 @@ export const searchClients = async (searchTerm) => {
 };
 
 /**
+ * Actualizar solo las observaciones de un cliente
+ */
+export const updateClientObservations = async (clientId, observations) => {
+  const { data } = await api.patch(`/clients/${clientId}/observations`, {
+    observations,
+  });
+  return data;
+};
+
+/**
  * Obtener créditos de un cliente específico
  */
 export const getClientCredits = async (clientId, params = {}) => {

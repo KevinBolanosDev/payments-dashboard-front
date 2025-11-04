@@ -1,9 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { DashboardHeader } from "@/components/dashboard-home/DashboardHeader";
-import { Navigation } from "@/components/Navigation";
+import { AuthGuard } from "@/components/AuthGuard";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/theme-provider";
+// import { ToastProvider } from "@/components/ui/toast";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,14 +35,21 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <div className="min-h-screen bg-background">
-              <DashboardHeader />
-              <Navigation />
-              <main className="container mx-auto px-4 py-8">{children}</main>
-            </div>
+            {/* <ToastProvider> */}
+            <AuthProvider>
+              <AuthGuard>
+                <AppLayout>{children}</AppLayout>
+              </AuthGuard>
+            </AuthProvider>
+            {/* </ToastProvider> */}
           </ThemeProvider>
         </QueryProvider>
       </body>
     </html>
   );
+}
+
+// Componente separado para el layout de la aplicación
+function AppLayout({ children }) {
+  return <>{children}</>;
 }

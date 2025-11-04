@@ -2,21 +2,23 @@ import axios from "axios";
 
 // Configuración base del cliente API
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Interceptor para requests - agregar tokens de autenticación si es necesario
+// Interceptor para requests - agregar tokens de autenticación automáticamente
 api.interceptors.request.use(
   (config) => {
-    // Aquí podrías agregar tokens de autenticación
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    // Agregar token de autenticación si existe
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("auth_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
 
     /* console.log(
       `🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`
@@ -32,7 +34,7 @@ api.interceptors.request.use(
 // Interceptor para responses - manejo global de errores
 api.interceptors.response.use(
   (response) => {
-    // console.log(`✅ API Response: ${response.status} ${response.config.url}`);
+    console.log(`✅ API Response: ${response.status} ${response.config.url}`);
     return response;
   },
   (error) => {
@@ -47,7 +49,10 @@ api.interceptors.response.use(
         case 401:
           // Token expirado o no válido
           console.warn("🔒 Token expirado, redirigiendo al login...");
-          // Aquí podrías limpiar el token y redirigir
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("auth_token");
+            window.location.href = "/login";
+          }
           break;
         case 403:
           console.warn("🚫 Acceso denegado");

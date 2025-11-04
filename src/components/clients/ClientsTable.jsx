@@ -33,12 +33,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useClients } from "@/hooks/useClients";
+import UpdateClientsModal from "./UpdateClientsModal";
 
 export function ClientsTable() {
   // State para la paginación
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
-
+  const [showUpdateClientsModal, setShowUpdateClientsModal] = useState(false);
+  const [selectedClient, setSelectedClient] = useState(null);
   // Hooks para obtener datos de los clientes
   const {
     data: clientsResponse,
@@ -50,6 +52,16 @@ export function ClientsTable() {
     page,
     limit,
   });
+
+  const handleCloseUpdateClientsModal = () => {
+    setShowUpdateClientsModal(false);
+    setSelectedClient(null);
+  };
+
+  const handleOpenUpdateClientsModal = (client) => {
+    setSelectedClient(client);
+    setShowUpdateClientsModal(true);
+  };
 
   const clients = clientsResponse?.data || [];
   const pagination = clientsResponse?.pagination || {};
@@ -236,8 +248,11 @@ export function ClientsTable() {
                   </TableCell>
                 </TableRow>
               ) : (
-                clients.map((client) => (
-                  <TableRow key={client.id} className="hover:bg-accent/50">
+                clients.map((client, index) => (
+                  <TableRow
+                    key={client._id || client.id || index}
+                    className="hover:bg-accent/50"
+                  >
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
@@ -280,7 +295,10 @@ export function ClientsTable() {
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell>{getStatusBadge(client.status)}</TableCell>
+                    <TableCell>
+                      {getStatusBadge(client.status)}
+                      {/* TODO: boton para cambiar el estado del cliente */}
+                    </TableCell>
                     <TableCell className="max-w-[200px] truncate">
                       {client.observations || "Sin observaciones"}
                     </TableCell>
@@ -300,7 +318,9 @@ export function ClientsTable() {
                             <Eye className="h-4 w-4 mr-2" />
                             Ver detalles
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleOpenUpdateClientsModal(client)}
+                          >
                             <Edit className="h-4 w-4 mr-2" />
                             Editar
                           </DropdownMenuItem>
@@ -398,6 +418,11 @@ export function ClientsTable() {
           </div>
         )}
       </CardContent>
+      <UpdateClientsModal
+        show={showUpdateClientsModal}
+        onClose={handleCloseUpdateClientsModal}
+        client={selectedClient}
+      />
     </Card>
   );
 }

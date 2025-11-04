@@ -8,6 +8,7 @@ import {
   getClientsStats,
   searchClients,
   updateClient,
+  updateClientObservations,
 } from "@/services/clientsService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -145,6 +146,30 @@ export function useDeleteClient() {
     },
     onError: (error) => {
       console.error("❌ Error al eliminar cliente:", error);
+    },
+  });
+}
+
+/**
+ * Hook para actualizar solo las observaciones de un cliente
+ */
+export function useUpdateClientObservations() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ clientId, observations }) =>
+      updateClientObservations(clientId, observations),
+    onSuccess: (updatedClient, variables) => {
+      // Actualizar el cliente específico en caché
+      queryClient.setQueryData(["clients", variables.clientId], updatedClient);
+
+      // Invalidar la lista de clientes para refrescar la tabla
+      queryClient.invalidateQueries({ queryKey: ["clients"] });
+
+      console.log("✅ Observación actualizada exitosamente:", updatedClient);
+    },
+    onError: (error) => {
+      console.error("❌ Error al actualizar observación:", error);
     },
   });
 }
